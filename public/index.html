@@ -14,7 +14,7 @@
         getAuth,
         createUserWithEmailAndPassword,
         onAuthStateChanged,
-        signOut,
+        signInWithEmailAndPassword,
       } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
       // TODO: Add SDKs for Firebase products that you want to use
@@ -58,6 +58,25 @@
           })
           .catch((error) => {
             alert('登録に失敗しました[' + error.message + ']');
+          });
+      });
+
+      // ログイン処理
+      const loginForm = document.getElementById('login-form');
+      const mailAddressInput = document.getElementById('mailAddress');
+      const passwordInput = document.getElementById('password');
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const mailAddress = mailAddressInput.value;
+        const password = passwordInput.value;
+        signInWithEmailAndPassword(auth, mailAddress, password)
+          .then(() => {
+            // ログインフォームを初期化
+            mailAddressInput.value = '';
+            passwordInput.value = '';
+          })
+          .catch((error) => {
+            alert('ログインに失敗しました[' + error.message + ']');
           });
       });
 
